@@ -1,0 +1,296 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<title>كافيه حبّة</title>
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Reem+Kufi:wght@500;700&family=Tajawal:wght@400;500;700&display=swap">
+<style>
+/* Layout: dark roast hero band with a drawn cup, then menu tabs + sticky order tray, booking, hours/visit, footer */
+:root{
+  --bg:#f5f6f1; --surface:#ffffff; --ink:#1d2620; --muted:#5f6b62; --line:#dfe3da;
+  --roast:#3b2416; --roast-2:#5a3722; --cardamom:#3f7a55; --cardamom-soft:#e2efe6; --crema:#d9a35b; --on-dark:#f7efe3;
+  --f-display:"Reem Kufi","Tajawal",system-ui,sans-serif; --f-body:"Tajawal",system-ui,sans-serif;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#121512; --surface:#1b201c; --ink:#e9ede7; --muted:#a2ada4; --line:#2c332d;
+  --roast:#24150c; --roast-2:#3a2416; --cardamom:#78c194; --cardamom-soft:#1c3125; --crema:#e6b46d; --on-dark:#f7efe3; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#121512; --surface:#1b201c; --ink:#e9ede7; --muted:#a2ada4; --line:#2c332d;
+  --roast:#24150c; --roast-2:#3a2416; --cardamom:#78c194; --cardamom-soft:#1c3125; --crema:#e6b46d; --on-dark:#f7efe3; color-scheme:dark}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:16px;line-height:1.65;direction:rtl}
+.in{max-width:1080px;margin:0 auto;padding-left:max(18px,env(safe-area-inset-left,0px));padding-right:max(18px,env(safe-area-inset-right,0px))}
+h1,h2,h3{font-family:var(--f-display);margin:0;text-wrap:balance;line-height:1.25}
+.num{font-variant-numeric:tabular-nums}
+a{color:inherit}
+button{font:inherit;cursor:pointer}
+:focus-visible{outline:2px solid var(--crema);outline-offset:2px}
+
+/* nav + hero */
+.hero{background:radial-gradient(120% 90% at 85% 10%,var(--roast-2),var(--roast) 60%);color:var(--on-dark)}
+nav{display:flex;justify-content:space-between;align-items:center;padding-block:16px;gap:12px}
+.logo{font-family:var(--f-display);font-size:26px;font-weight:700;display:flex;align-items:center;gap:8px}
+.logo i{width:12px;height:18px;border-radius:50%;background:var(--crema);display:inline-block;transform:rotate(-25deg);position:relative}
+.logo i::after{content:"";position:absolute;inset:3px 5px;border-inline-start:1.5px solid var(--roast);border-radius:50%}
+nav .links{display:flex;gap:18px;font-weight:500}
+nav .links a{text-decoration:none;opacity:.85}
+nav .links a:hover{opacity:1}
+@media (max-width:620px){nav .links{display:none}}
+.hero-grid{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,.9fr);gap:24px;align-items:center;padding-block:28px 56px}
+@media (max-width:760px){.hero-grid{grid-template-columns:minmax(0,1fr)}.cup{order:-1;max-width:260px;margin:0 auto}}
+.eyebrow{color:var(--crema);font-weight:700;letter-spacing:.02em}
+.hero h1{font-size:clamp(34px,6vw,58px);margin:6px 0 14px}
+.hero p{max-width:46ch;opacity:.88;margin:0 0 22px;font-size:18px}
+.cta{display:flex;gap:10px;flex-wrap:wrap}
+.btn{border:0;border-radius:12px;padding:12px 20px;font-weight:700;text-decoration:none;display:inline-block}
+.btn.main{background:var(--crema);color:var(--roast)}
+.btn.line{background:transparent;color:var(--on-dark);border:1.5px solid rgba(247,239,227,.35)}
+.status{margin-top:18px;display:inline-flex;align-items:center;gap:8px;font-size:14px;background:rgba(247,239,227,.08);padding:6px 12px;border-radius:99px}
+.status b{width:8px;height:8px;border-radius:50%;background:#7fd39b;display:inline-block}
+.status.closed b{background:#e98b7a}
+.cup svg{width:100%;height:auto;display:block}
+@media (prefers-reduced-motion:no-preference){.steam path{animation:rise 3.2s ease-in-out infinite}.steam path:nth-child(2){animation-delay:.8s}.steam path:nth-child(3){animation-delay:1.6s}
+@keyframes rise{0%{transform:translateY(8px);opacity:0}40%{opacity:.75}100%{transform:translateY(-14px);opacity:0}}}
+
+/* menu */
+section{padding-block:56px}
+.head{display:flex;justify-content:space-between;align-items:end;gap:16px;flex-wrap:wrap;margin-bottom:20px}
+.head h2{font-size:clamp(26px,4vw,36px)}
+.head p{color:var(--muted);margin:4px 0 0}
+.tabs{display:flex;gap:6px;flex-wrap:wrap}
+.tabs button{border:1px solid var(--line);background:var(--surface);color:var(--ink);border-radius:99px;padding:7px 16px;font-weight:500}
+.tabs button[aria-selected="true"]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.menu-wrap{display:grid;grid-template-columns:minmax(0,1fr) 300px;gap:22px;align-items:start}
+@media (max-width:860px){.menu-wrap{grid-template-columns:minmax(0,1fr)}}
+.items{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+@media (max-width:560px){.items{grid-template-columns:minmax(0,1fr)}}
+.item{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:14px;display:grid;grid-template-columns:52px minmax(0,1fr) auto;gap:12px;align-items:center}
+.dot{width:52px;height:52px;border-radius:14px;display:grid;place-items:center;background:var(--cardamom-soft)}
+.dot svg{width:30px;height:30px}
+.item h3{font-size:17px}
+.item p{margin:0;color:var(--muted);font-size:14px;line-height:1.45}
+.price{font-weight:700;color:var(--cardamom);font-size:15px;margin-top:2px}
+.add{width:38px;height:38px;border-radius:50%;border:0;background:var(--cardamom);color:#fff;font-size:22px;line-height:1}
+:root[data-theme="dark"] .add{color:var(--roast)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .add{color:var(--roast)}}
+
+.tray{position:sticky;top:calc(env(safe-area-inset-top,0px) + 14px);background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:16px;display:flex;flex-direction:column;gap:10px}
+.tray h3{font-size:20px}
+.lines{display:flex;flex-direction:column;gap:8px;max-height:260px;overflow-y:auto}
+.ln{display:grid;grid-template-columns:minmax(0,1fr) auto auto;gap:8px;align-items:center;font-size:15px}
+.qty{display:flex;align-items:center;gap:6px}
+.qty button{width:26px;height:26px;border-radius:8px;border:1px solid var(--line);background:var(--bg);color:var(--ink);line-height:1}
+.total{display:flex;justify-content:space-between;border-top:1px dashed var(--line);padding-top:10px;font-weight:700;font-size:18px}
+.muted{color:var(--muted);font-size:14px}
+.tray .btn{background:var(--ink);color:var(--bg);text-align:center}
+.tray .btn:disabled{opacity:.4;cursor:default}
+.done{background:var(--cardamom-soft);color:var(--cardamom);border-radius:12px;padding:10px 12px;font-weight:500;font-size:15px}
+
+/* booking */
+.book{background:var(--surface);border-block:1px solid var(--line)}
+.book-grid{display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);gap:28px;align-items:start}
+@media (max-width:760px){.book-grid{grid-template-columns:minmax(0,1fr)}}
+form.f{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+@media (max-width:480px){form.f{grid-template-columns:minmax(0,1fr)}}
+.f label{display:flex;flex-direction:column;gap:5px;font-weight:500;font-size:14px}
+.f .full{grid-column:1/-1}
+.f input,.f select{font:inherit;color:var(--ink);background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:10px 12px;min-width:0}
+.err{color:#c0392b;font-size:13px;min-height:1em}
+.perks{list-style:none;padding:0;margin:16px 0 0;display:flex;flex-direction:column;gap:10px}
+.perks li{display:flex;gap:10px;align-items:baseline}
+.perks li::before{content:"";width:8px;height:8px;border-radius:50%;background:var(--crema);flex:none;transform:translateY(-2px)}
+
+/* hours */
+.visit{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+@media (max-width:760px){.visit{grid-template-columns:minmax(0,1fr)}}
+.box{border:1px solid var(--line);border-radius:14px;padding:18px;background:var(--surface)}
+.box h3{font-size:19px;margin-bottom:8px}
+.hrs{width:100%;border-collapse:collapse;font-size:15px}
+.hrs td{padding:4px 0}
+.hrs td:last-child{text-align:left}
+.hrs tr.today{color:var(--cardamom);font-weight:700}
+footer{background:var(--roast);color:var(--on-dark);padding-block:26px;font-size:14px}
+footer .in{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;opacity:.85}
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="in">
+    <nav>
+      <div class="logo"><i aria-hidden="true"></i>حبّة</div>
+      <div class="links"><a href="#menu">المنيو</a><a href="#book">احجز</a><a href="#visit">مواعيدنا</a></div>
+    </nav>
+    <div class="hero-grid">
+      <div>
+        <div class="eyebrow">محمّصة وكافيه · من ٢٠١٩</div>
+        <h1>قهوة بنحمّصها كل يوم الصبح</h1>
+        <p>بن مختص من إثيوبيا وكولومبيا، متحمّص عندنا على نار هادية. اطلب أونلاين واستلم من غير ما تستنى، أو احجز ترابيزتك.</p>
+        <div class="cta"><a class="btn main" href="#menu">اطلب دلوقتي</a><a class="btn line" href="#book">احجز ترابيزة</a></div>
+        <div class="status" id="status"><b></b><span id="statusTxt"></span></div>
+      </div>
+      <div class="cup" aria-hidden="true">
+        <svg viewBox="0 0 320 300">
+          <g class="steam" fill="none" stroke="#f7efe3" stroke-width="5" stroke-linecap="round" opacity=".7">
+            <path d="M125 90c-14-18 14-28 0-48"/><path d="M160 86c-14-18 14-28 0-48"/><path d="M195 90c-14-18 14-28 0-48"/>
+          </g>
+          <ellipse cx="160" cy="262" rx="128" ry="22" fill="#000" opacity=".22"/>
+          <ellipse cx="160" cy="248" rx="120" ry="20" fill="#e9dcc8"/>
+          <path d="M248 140c40-4 46 58 2 64" fill="none" stroke="#f3ebe0" stroke-width="16"/>
+          <path d="M66 112h188l-12 104c-3 22-22 34-44 34h-76c-22 0-41-12-44-34z" fill="#f3ebe0"/>
+          <ellipse cx="160" cy="114" rx="94" ry="18" fill="#6b3f22"/>
+          <ellipse cx="160" cy="114" rx="80" ry="13" fill="#9a6235"/>
+          <path d="M138 112c8-10 36-10 44 0c-8 8-36 8-44 0z" fill="#e7c08a"/>
+          <ellipse cx="160" cy="178" rx="22" ry="30" fill="#3f7a55" transform="rotate(-25 160 178)"/>
+          <path d="M152 156c10 12 10 32 0 44" fill="none" stroke="#f3ebe0" stroke-width="3" transform="rotate(-25 160 178)"/>
+        </svg>
+      </div>
+    </div>
+  </div>
+</header>
+
+<main>
+  <section id="menu">
+    <div class="in">
+      <div class="head">
+        <div><h2>المنيو</h2><p>دوس + علشان تضيف لطلبك، واستلمه جاهز.</p></div>
+        <div class="tabs" role="tablist" id="tabs"></div>
+      </div>
+      <div class="menu-wrap">
+        <div class="items" id="items"></div>
+        <aside class="tray" aria-label="طلبك">
+          <h3>طلبك</h3>
+          <div class="lines" id="lines"></div>
+          <div class="total"><span>الإجمالي</span><span class="num" id="total">٠ ج</span></div>
+          <label class="muted" for="pickup">هتستلم إمتى؟</label>
+          <select id="pickup" style="font:inherit;color:var(--ink);background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:9px"><option>كمان ١٥ دقيقة</option><option>كمان ٣٠ دقيقة</option><option>كمان ساعة</option></select>
+          <button class="btn" id="order" disabled>أكّد الطلب</button>
+          <div class="done" id="done" hidden></div>
+        </aside>
+      </div>
+    </div>
+  </section>
+
+  <section class="book" id="book">
+    <div class="in book-grid">
+      <div>
+        <h2 style="font-size:clamp(26px,4vw,36px)">احجز ترابيزتك</h2>
+        <p class="muted" style="font-size:16px">الويك إند بيتملي بسرعة. احجز وهنحجزلك مكان جنب الشباك لو متاح.</p>
+        <ul class="perks"><li>الحجز ببلاش ومن غير دفع مقدّم</li><li>هنستناك ١٥ دقيقة بعد الميعاد</li><li>ركن هادي للمذاكرة فيه شواحن</li></ul>
+      </div>
+      <form class="f" id="bookF" novalidate>
+        <label>الاسم<input id="bName" required autocomplete="off"></label>
+        <label>عدد الأفراد<select id="bPpl"><option>١</option><option selected>٢</option><option>٣</option><option>٤</option><option>٥+</option></select></label>
+        <label>اليوم<input id="bDate" type="date" required></label>
+        <label>الساعة<select id="bTime"></select></label>
+        <label class="full">ملاحظة (اختياري)<input id="bNote" placeholder="مثلاً: عيد ميلاد، أو محتاج مكان هادي" autocomplete="off"></label>
+        <div class="full err" id="bErr"></div>
+        <button class="btn full" style="background:var(--cardamom);color:var(--surface)" type="submit">احجز</button>
+        <div class="full done" id="bDone" hidden></div>
+      </form>
+    </div>
+  </section>
+
+  <section id="visit">
+    <div class="in">
+      <div class="head"><h2>زورنا</h2></div>
+      <div class="visit">
+        <div class="box"><h3>المواعيد</h3><table class="hrs" id="hrs"></table></div>
+        <div class="box"><h3>العنوان</h3><p style="margin:0">شارع النخيل، جنب الحديقة الكبيرة<br><span class="muted">(عنوان تجريبي)</span></p></div>
+        <div class="box"><h3>كلّمنا</h3><p style="margin:0" class="num">٠١٠٠٠٠٠٠٠٠٠<br><span class="muted">(رقم تجريبي)</span></p></div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer><div class="in"><span>© حبّة · مشروع تجريبي، والاسم والعنوان خياليين</span><span>تصميم وتنفيذ Vexlo</span></div></footer>
+
+<script>
+const ar = n => Number(n).toLocaleString("ar-EG");
+const ICON = {
+  hot: '<svg viewBox="0 0 32 32"><path d="M6 12h16v8a7 7 0 0 1-7 7h-2a7 7 0 0 1-7-7z" fill="var(--cardamom)"/><path d="M22 14h2a3 3 0 0 1 0 6h-2" fill="none" stroke="var(--cardamom)" stroke-width="2"/><path d="M11 9c-2-2 2-3 0-5M16 9c-2-2 2-3 0-5" stroke="var(--cardamom)" stroke-width="1.6" fill="none" stroke-linecap="round"/></svg>',
+  cold: '<svg viewBox="0 0 32 32"><path d="M9 8h14l-2 19H11z" fill="var(--cardamom)"/><rect x="12" y="12" width="4" height="4" rx="1" fill="var(--surface)" opacity=".7"/><rect x="16" y="17" width="4" height="4" rx="1" fill="var(--surface)" opacity=".7"/><path d="M18 8l3-5" stroke="var(--cardamom)" stroke-width="2"/></svg>',
+  sweet: '<svg viewBox="0 0 32 32"><path d="M5 18h22l-3 8H8z" fill="var(--cardamom)"/><path d="M7 18a9 7 0 0 1 18 0" fill="var(--cardamom)" opacity=".55"/><circle cx="16" cy="9" r="2.2" fill="var(--cardamom)"/></svg>',
+  bean: '<svg viewBox="0 0 32 32"><ellipse cx="16" cy="16" rx="8" ry="11" fill="var(--cardamom)" transform="rotate(-25 16 16)"/><path d="M13 7c5 6 5 13 0 19" stroke="var(--surface)" stroke-width="1.8" fill="none" transform="rotate(-25 16 16)"/></svg>'
+};
+const MENU = {
+  "مشروبات سخنة": [["إسبريسو", "شوت مركّز من خلطة البيت", 45, "hot"], ["كابتشينو", "إسبريسو ولبن مخفوق ناعم", 70, "hot"], ["لاتيه بالهيل", "لاتيه بلمسة هيل مطحون طازة", 80, "hot"], ["قهوة تركي", "محوّجة، سادة أو مظبوط", 40, "hot"], ["شاي بالنعناع", "شاي أخضر ونعناع فريش", 35, "hot"], ["هوت شوكليت", "شوكولاتة غامقة ولبن", 75, "hot"]],
+  "مشروبات ساقعة": [["آيس لاتيه", "إسبريسو ولبن على تلج", 80, "cold"], ["كولد برو", "منقوع ١٨ ساعة، طعمه ناعم", 85, "cold"], ["سموذي مانجا", "مانجا طازة وزبادي", 70, "cold"], ["ليمون نعناع", "منعش ومتلّج", 45, "cold"]],
+  "حلويات": [["تشيز كيك لوتس", "قاعدة بسكوت وكريمة لوتس", 90, "sweet"], ["براونيز", "سخنة، ومعاها آيس كريم لو حبيت", 65, "sweet"], ["كرواسون زبدة", "بيتخبز عندنا كل يوم", 45, "sweet"], ["كوكيز شوكولاتة", "قطعتين", 40, "sweet"]],
+  "بن للبيت": [["بن إثيوبي ٢٥٠ج", "نكهة فواكه وورد، تحميص فاتح", 260, "bean"], ["بن كولومبي ٢٥٠ج", "شوكولاتة وكراميل، تحميص وسط", 240, "bean"], ["خلطة البيت ٢٥٠ج", "للإسبريسو والقهوة باللبن", 220, "bean"]]
+};
+let tab = Object.keys(MENU)[0];
+const cart = new Map();
+const find = n => Object.values(MENU).flat().find(x => x[0] === n);
+
+function renderTabs() {
+  document.getElementById("tabs").innerHTML = Object.keys(MENU).map(t => `<button role="tab" aria-selected="${t === tab}" data-tab="${t}">${t}</button>`).join("");
+  document.getElementById("items").innerHTML = MENU[tab].map(([n, d, p, i]) => `
+    <div class="item"><div class="dot">${ICON[i]}</div>
+      <div style="min-width:0"><h3>${n}</h3><p>${d}</p><div class="price num">${ar(p)} ج</div></div>
+      <button class="add" data-add="${n}" aria-label="ضيف ${n}">+</button></div>`).join("");
+}
+function renderCart() {
+  const lines = [...cart.entries()];
+  document.getElementById("lines").innerHTML = lines.length ? lines.map(([n, q]) => `
+    <div class="ln"><span>${n}</span><span class="qty"><button data-dec="${n}" aria-label="قلّل">−</button><span class="num">${ar(q)}</span><button data-add="${n}" aria-label="زوّد">+</button></span><span class="num">${ar(find(n)[2] * q)}</span></div>`).join("")
+    : `<p class="muted" style="margin:0">طلبك فاضي. اختار من المنيو.</p>`;
+  const t = lines.reduce((s, [n, q]) => s + find(n)[2] * q, 0);
+  document.getElementById("total").textContent = ar(t) + " ج";
+  document.getElementById("order").disabled = !lines.length;
+}
+document.addEventListener("click", e => {
+  const tb = e.target.closest("[data-tab]"), a = e.target.closest("[data-add]"), d = e.target.closest("[data-dec]");
+  if (tb) { tab = tb.dataset.tab; renderTabs(); }
+  if (a) { cart.set(a.dataset.add, (cart.get(a.dataset.add) || 0) + 1); document.getElementById("done").hidden = true; renderCart(); }
+  if (d) { const q = cart.get(d.dataset.dec) - 1; q > 0 ? cart.set(d.dataset.dec, q) : cart.delete(d.dataset.dec); renderCart(); }
+});
+document.getElementById("order").onclick = () => {
+  const code = Math.floor(100 + Math.random() * 900);
+  const done = document.getElementById("done");
+  done.textContent = `اتسجّل طلبك رقم ${ar(code)}، وهيبقى جاهز ${document.getElementById("pickup").value}. (ده موقع تجريبي، مفيش طلب حقيقي اتبعت)`;
+  done.hidden = false; cart.clear(); renderCart();
+};
+
+/* hours + open now */
+const DAYS = ["الأحد", "الاتنين", "التلات", "الأربع", "الخميس", "الجمعة", "السبت"];
+const HRS = [[8, 24], [8, 24], [8, 24], [8, 24], [8, 25], [10, 25], [8, 24]]; // 25 = 1 بالليل
+const hh = h => { h = h % 24; return h === 0 ? "١٢ بالليل" : h === 1 ? "١ بالليل" : h < 12 ? ar(h) + " الصبح" : h === 12 ? "١٢ الضهر" : ar(h - 12) + (h < 17 ? " العصر" : " بالليل"); };
+const now = new Date(), today = now.getDay();
+document.getElementById("hrs").innerHTML = DAYS.map((d, i) => `<tr class="${i === today ? "today" : ""}"><td>${d}</td><td>${hh(HRS[i][0])} – ${hh(HRS[i][1])}</td></tr>`).join("");
+const h = now.getHours() + now.getMinutes() / 60, prev = HRS[(today + 6) % 7];
+const open = (h >= HRS[today][0] && h < HRS[today][1]) || (prev[1] > 24 && h < prev[1] - 24);
+document.getElementById("status").classList.toggle("closed", !open);
+document.getElementById("statusTxt").textContent = open ? "مفتوحين دلوقتي · لحد " + hh(h >= HRS[today][0] ? HRS[today][1] : prev[1]) : "مقفولين دلوقتي · بنفتح " + hh(HRS[today][0]);
+
+/* booking */
+const bDate = document.getElementById("bDate"), bTime = document.getElementById("bTime");
+const iso = d => d.getFullYear() + "-" + String(d.getMonth() + 1).padStart(2, "0") + "-" + String(d.getDate()).padStart(2, "0");
+bDate.min = iso(now); const max = new Date(); max.setDate(max.getDate() + 30); bDate.max = iso(max); bDate.value = iso(now);
+function fillTimes() {
+  const d = new Date(bDate.value + "T00:00"), w = isNaN(d) ? today : d.getDay(), [a, b] = HRS[w];
+  const isToday = bDate.value === iso(now); let opts = "";
+  for (let t = a; t < b - 1; t++) { if (isToday && t <= now.getHours()) continue; opts += `<option value="${t}">${hh(t)}</option>`; }
+  bTime.innerHTML = opts || `<option value="">مفيش مواعيد فاضية النهارده</option>`;
+}
+bDate.addEventListener("change", fillTimes); fillTimes();
+if (!bTime.value) { const t = new Date(); t.setDate(t.getDate() + 1); bDate.value = iso(t); fillTimes(); }
+document.getElementById("bookF").addEventListener("submit", e => {
+  e.preventDefault();
+  const err = document.getElementById("bErr"), name = document.getElementById("bName").value.trim();
+  err.textContent = "";
+  if (!name) return err.textContent = "اكتب اسمك علشان نحجز بيه.";
+  if (!bDate.value || bDate.value < bDate.min || bDate.value > bDate.max) return err.textContent = "اختار يوم من النهارده لحد ٣٠ يوم قدّام.";
+  if (!bTime.value) return err.textContent = "مفيش مواعيد فاضية في اليوم ده، اختار يوم تاني.";
+  const d = new Date(bDate.value + "T00:00");
+  const ok = document.getElementById("bDone");
+  ok.textContent = `تمام يا ${name}! حجزنالك ترابيزة لـ${document.getElementById("bPpl").value} يوم ${DAYS[d.getDay()]} ${ar(d.getDate())}/${ar(d.getMonth() + 1)} الساعة ${hh(+bTime.value)}. (موقع تجريبي، مفيش حجز حقيقي)`;
+  ok.hidden = false; e.target.querySelectorAll("input:not([type=date])").forEach(i => i.value = "");
+});
+
+renderTabs(); renderCart();
+</script>
+</body>
+</html>
